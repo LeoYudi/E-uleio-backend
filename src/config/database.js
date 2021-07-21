@@ -5,4 +5,8 @@ module.exports = {
   username: 'geovana',
   password: 'Torinho',
   database: 'e-uleio',
+  define: {
+    underscored: true,
+    timestamps: false,
+  }
 }
