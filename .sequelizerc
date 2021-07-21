@@ -1,5 +1,5 @@
 const path = require('path');
 
 module.exports = {
-  config: path.resolve(_dirname, 'src', 'config', 'database.js'),
+  config: path.resolve(__dirname, 'src', 'config', 'database.js'),
 }
