@@ -1,4 +1,5 @@
 'use strict';
+const { generateHash } = require('../../utils/auth');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -6,7 +7,7 @@ module.exports = {
       name: 'admin',
       email: 'admin',
       cpf: '1111111',
-      password: 'admin123',
+      password: await generateHash('admin123'),
       is_admin: 1
     }], {});
   },
