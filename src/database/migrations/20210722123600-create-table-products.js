@@ -11,7 +11,7 @@ module.exports = {
       },
       id_publisher: {
         type: Sequelize.INTEGER,
-        references: { model: 'publishers', key: 'id' },
+        references: { model: 'publisher', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         allowNull: false

@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-modelu.exports = {
+module.exports = {
     generateHash: async (password) => {
         return await new Promise((resolve, reject) => {
             bcrypt.hash(password, bcrypt.genSaltSync(10), (error, hash) => {
