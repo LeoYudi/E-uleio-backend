@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const dbConfig = require('../config/database');
 
 const Product = require('../models/Product');
+const Category = require('../models/Category');
 
 const connection = new Sequelize(dbConfig);
 
@@ -10,5 +11,6 @@ connection.authenticate().
   .catch((error) => console.log(error));
 
 Product.init(connection);
+Category.init(connection);
 
 module.exports = connection;

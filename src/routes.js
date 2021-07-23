@@ -8,8 +8,8 @@ routes.get('/', (req, res) => {
 
 routes.post('/products', ProductController.save);
 routes.get('/products', ProductController.list);
-routes.put('/products', ProductController.edit);
-routes.delete('/products', ProductController.delete);
+routes.put('/products/:id_product', ProductController.edit);
+routes.delete('/products:id_product', ProductController.delete);
 
 
 module.exports = routes;
