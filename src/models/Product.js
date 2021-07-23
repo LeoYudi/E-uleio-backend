@@ -4,7 +4,7 @@ class Product extends Model {
     static init(connection) {
         super.init({
             id_publisher: DataTypes.INTEGER,
-            id_categories: DataTypes.INTEGER,
+            id_category: DataTypes.INTEGER,
             name: DataTypes.STRING,
             author: DataTypes.STRING,
             description: DataTypes.TEXT,
@@ -18,7 +18,7 @@ class Product extends Model {
     }
     static associations(models) {
         this.belongsTo(models.Publisher, { foreignKey: 'id_publisher', as: 'publisher' })
-        this.belongsTo(models.Categorie, { foreignKey: 'id_categories', as: 'categorie' })
+        this.belongsTo(models.Category, { foreignKey: 'id_category', as: 'category' })
     }
 }
 
