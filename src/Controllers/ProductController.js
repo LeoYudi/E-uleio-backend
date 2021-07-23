@@ -20,7 +20,7 @@ module.exports = {
 
         return res.status(200).send(products);
     },
-    async update(req, res) {
+    async edit(req, res) {
         const { id_product } = req.params;
 
         const { name, author, description, price, total_pages, image_uri, id_category, id_publisher } = req.body;
