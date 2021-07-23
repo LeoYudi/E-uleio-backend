@@ -1,6 +1,7 @@
 const express = require('express');
 const CategoryController = require('./Controllers/CategoryController');
 const ProductController = require('./Controllers/ProductController');
+const PublisherController = require('./Controllers/PublisherController');
 const routes = express.Router();
 
 routes.get('/', (req, res) => {
@@ -16,5 +17,10 @@ routes.post('/categories', CategoryController.save);
 routes.get('/categories', CategoryController.list);
 routes.put('/categories/:id_category', CategoryController.edit);
 routes.delete('/categories:id_category', CategoryController.delete);
+
+routes.post('/publisher', PublisherController.save);
+routes.get('/publisher', PublisherController.list);
+routes.put('/publisher/:id_publisher', PublisherController.edit);
+routes.delete('/publisher:id_publisher', PublisherController.delete);
 
 module.exports = routes;
