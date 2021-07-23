@@ -8,11 +8,13 @@ module.exports = {
 
         return res.status(200).send(publisher);
     },
+
     async list(req, res) {
         const publishers = await Publisher.findAll();
 
         return res.status(200).send(publishers);
     },
+
     async edit(req, res) {
         const { id_publisher } = req.params;
 
@@ -20,7 +22,7 @@ module.exports = {
 
         const publisher = await Publisher.findByPk(id_publisher);
 
-        const publisherUpdate = await publihser.update({ name });
+        const publisherUpdate = await publisher.update({ name });
 
         return res.status(200).send(publisherUpdate);
     },

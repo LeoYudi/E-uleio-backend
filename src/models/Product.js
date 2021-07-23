@@ -16,7 +16,7 @@ class Product extends Model {
             sequelize: connection
         })
     }
-    static associations(models) {
+    static associate(models) {
         this.belongsTo(models.Publisher, { foreignKey: 'id_publisher', as: 'publisher' })
         this.belongsTo(models.Category, { foreignKey: 'id_category', as: 'category' })
     }

@@ -8,7 +8,7 @@ class Category extends Model {
             sequelize: connection
         })
     }
-    static associations(models) {
+    static associate(models) {
         this.hasMany(models.Product, { foreignKey: 'id_category', as: 'products' })
     }
 }
