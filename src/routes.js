@@ -23,10 +23,10 @@ routes.get('/categories', CategoryController.list);
 routes.put('/categories/:id_category', authMiddleware, CategoryController.edit);
 routes.delete('/categories/:id_category', authMiddleware, CategoryController.delete);
 
-routes.post('/publisher', PublisherController.save);
+routes.post('/publisher', authMiddleware, PublisherController.save);
 routes.get('/publisher', PublisherController.list);
-routes.put('/publisher/:id_publisher', PublisherController.edit);
-routes.delete('/publisher/:id_publisher', PublisherController.delete);
+routes.put('/publisher/:id_publisher', authMiddleware, PublisherController.edit);
+routes.delete('/publisher/:id_publisher', authMiddleware, PublisherController.delete);
 
 routes.post('/login', UserController.login);
 routes.post('/users', UserController.save);
