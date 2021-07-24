@@ -18,10 +18,10 @@ routes.get('/products', ProductController.list);
 routes.put('/products/:id_product', authMiddleware, multer(multerConfig).single('image'), ProductController.edit);
 routes.delete('/products/:id_product', authMiddleware, ProductController.delete);
 
-routes.post('/categories', CategoryController.save);
+routes.post('/categories', authMiddleware, CategoryController.save);
 routes.get('/categories', CategoryController.list);
-routes.put('/categories/:id_category', CategoryController.edit);
-routes.delete('/categories/:id_category', CategoryController.delete);
+routes.put('/categories/:id_category', authMiddleware, CategoryController.edit);
+routes.delete('/categories/:id_category', authMiddleware, CategoryController.delete);
 
 routes.post('/publisher', PublisherController.save);
 routes.get('/publisher', PublisherController.list);

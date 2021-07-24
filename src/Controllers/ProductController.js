@@ -9,7 +9,7 @@ module.exports = {
         if (!req.isAdmin) {
             if (req.file)
                 deleteFile(req.file.key);
-            return res.status(404).send({ msg: 'forbidden' });
+            return res.status(403).send({ msg: 'forbidden' });
         }
 
         if (hasNull(req.body, ['id_publisher', 'id_category', 'name', 'price', 'description', 'author']) || !req.file) {
