@@ -4,6 +4,7 @@ const dbConfig = require('../config/database');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 const Publisher = require('../models/Publisher');
+const User = require('../models/User');
 
 const connection = new Sequelize(dbConfig);
 
@@ -14,6 +15,7 @@ connection.authenticate().
 Product.init(connection);
 Category.init(connection);
 Publisher.init(connection);
+User.init(connection);
 
 Category.associate(connection.models);
 Publisher.associate(connection.models);
