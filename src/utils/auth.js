@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = {
   generateHash: async (password) => {
@@ -20,5 +21,5 @@ module.exports = {
     })
   },
 
-  generateToken: (data = {}) => jwt.sign(data, '150ef76c7869d07cb51e37699d32baf7', { expiresIn: '7d' })
+  generateToken: (data = {}) => jwt.sign(data, process.env.SECRET, { expiresIn: '7d' })
 }

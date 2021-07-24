@@ -1,6 +1,7 @@
 'use strict';
 
 const { generateHash } = require("../../utils/auth");
+require('dotenv').config();
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -11,7 +12,7 @@ module.exports = {
         name: 'Admin',
         email: 'admin',
         cpf: '111111111',
-        password: await generateHash('admin123'),
+        password: await generateHash(process.env.ADMIN_PASSWORD),
         is_admin: 1,
       }], {});
   },
