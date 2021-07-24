@@ -1,20 +1,21 @@
 const express = require('express');
-
+const multer = require('multer');
 const CategoryController = require('./Controllers/CategoryController');
 const ProductController = require('./Controllers/ProductController');
 const PublisherController = require('./Controllers/PublisherController');
-
-const routes = express.Router();
 const UserController = require('./controllers/UserController');
 const authMiddleware = require('./middlewares/auth');
+const multerConfig = require('./middlewares/multerConfig');
+
+const routes = express.Router();
 
 routes.get('/', (req, res) => {
   return res.status(200).json('Rota inicial');
 });
 
-routes.post('/products', authMiddleware, ProductController.save);
+routes.post('/products', authMiddleware, multer(multerConfig).single('image'), ProductController.save);
 routes.get('/products', ProductController.list);
-routes.put('/products/:id_product', authMiddleware, ProductController.edit);
+routes.put('/products/:id_product', authMiddleware, multer(multerConfig).single('image'), ProductController.edit);
 routes.delete('/products/:id_product', authMiddleware, ProductController.delete);
 
 routes.post('/categories', CategoryController.save);

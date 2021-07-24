@@ -1,24 +1,33 @@
 const Category = require('../models/Category');
 const Product = require('../models/Product');
 const Publisher = require('../models/Publisher');
+const { deleteFile } = require('../utils/deleteFile');
 const { hasNull } = require('../utils/hasNull');
 
 module.exports = {
     async save(req, res) {
-        if (!req.isAdmin)
+        if (!req.isAdmin) {
+            if (req.file)
+                deleteFile(req.file.key);
             return res.status(404).send({ msg: 'forbidden' });
+        }
 
-        if (hasNull(req.body, ['id_publisher', 'id_category', 'name', 'price', 'description', 'author']))
+        if (hasNull(req.body, ['id_publisher', 'id_category', 'name', 'price', 'description', 'author']) || !req.file) {
+            if (req.file)
+                deleteFile(req.file.key);
             return res.status(400).send({ msg: 'missing required data ' });
+        }
 
-        const { name, author, description, price, total_pages, id_category, id_publisher, image_uri } = req.body;
+        const { name, author, description, price, total_pages, id_category, id_publisher } = req.body;
 
         try {
             const category = await Category.findByPk(id_category);
             const publisher = await Publisher.findByPk(id_publisher);
 
-            if (!category || !publisher)
+            if (!category || !publisher) {
+                deleteFile(req.file.key);
                 return res.status(404).send({ msg: 'category or publisher not found' });
+            }
 
             let product = await Product.create({
                 id_publisher,
@@ -28,12 +37,14 @@ module.exports = {
                 description,
                 price,
                 total_pages,
-                image_uri
+                image_uri: `http://localhost:3000/images/${req.file.key}`
             });
 
             return res.status(200).send(product);
 
         } catch (error) {
+            if (req.file)
+                deleteFile(req.file.key);
             console.log(error);
             res.status(500).send({ msg: 'internal server error' });
         }
@@ -49,8 +60,7 @@ module.exports = {
             where: {},
             limit: parseInt(limit),
             offset: (page - 1) * limit,
-            include: { association: 'category' },
-            include: { association: 'publisher' },
+            include: [{ association: 'category' }, { association: 'publisher' }]
         };
 
         if (id_category)
@@ -74,8 +84,11 @@ module.exports = {
     },
     async edit(req, res) {
 
-        if (hasNull(req.params, ['id_product']))
+        if (hasNull(req.params, ['id_product'])) {
+            if (req.file)
+                deleteFile(req.file.key);
             return res.status(400).send({ msg: 'missing required data' });
+        }
 
         const { id_product } = req.params;
 
@@ -99,20 +112,39 @@ module.exports = {
                     return res.status(404).send({ mag: 'publisher not found' });
             }
 
-            await product.update({
-                id_publisher,
-                id_category,
-                name,
-                author,
-                description,
-                price,
-                total_pages,
-                //image_uri
-            });
+            if (req.file) {
+                const filename = product.image_uri.split('/images/')[1];
+                deleteFile(filename);
+
+                await product.update({
+                    id_publisher,
+                    id_category,
+                    name,
+                    author,
+                    description,
+                    price,
+                    total_pages,
+                    image_uri: `http://localhost:3000/images/${req.file.key}`
+                });
+            }
+
+            else {
+                await product.update({
+                    id_publisher,
+                    id_category,
+                    name,
+                    author,
+                    description,
+                    price,
+                    total_pages
+                });
+            }
 
             return res.status(200).send(product);
 
         } catch (error) {
+            if (req.file)
+                deleteFile(req.file.key);
             console.log(error);
             return res.status(500).send({ msg: 'internal server error' });
         }
@@ -130,6 +162,9 @@ module.exports = {
 
             if (!product)
                 return res.status(404).send({ msg: 'product not found' });
+
+            const filename = product.image_uri.split('/images/')[1];
+            deleteFile(filename);
 
             await product.destroy();
 
