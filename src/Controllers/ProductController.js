@@ -72,7 +72,7 @@ module.exports = {
             const products = await Product.findAll(query);
 
             if (products.length == 0)
-                return res.status(404).sebd({ msg: 'products not found' });
+                return res.status(404).send({ msg: 'products not found' });
 
             return res.status(200).send(products);
 
@@ -83,6 +83,12 @@ module.exports = {
 
     },
     async edit(req, res) {
+
+        if (!req.isAdmin) {
+            if (req.file)
+                deleteFile(req.file.key);
+            return res.status(403).send({ msg: 'forbidden' });
+        }
 
         if (hasNull(req.params, ['id_product'])) {
             if (req.file)
@@ -152,6 +158,13 @@ module.exports = {
     },
 
     async delete(req, res) {
+
+        if (!req.isAdmin) {
+            if (req.file)
+                deleteFile(req.file.key);
+            return res.status(403).send({ msg: 'forbidden' });
+        }
+
         if (hasNull(req.params, ['id_product']))
             return res.status(400).send({ msg: 'missing required data' });
 
