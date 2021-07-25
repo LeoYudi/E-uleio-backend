@@ -4,10 +4,10 @@ const CategoryController = require('./Controllers/CategoryController');
 const ProductController = require('./Controllers/ProductController');
 const PublisherController = require('./Controllers/PublisherController');
 const UserController = require('./controllers/UserController');
-const authMiddleware = require('./middlewares/auth');
-const multerConfig = require('./middlewares/multerConfig');
 
+const multerConfig = require('./middlewares/multerConfig');
 const routes = express.Router();
+const authMiddleware = require('./middlewares/auth');
 
 routes.get('/', (req, res) => {
   return res.status(200).json('Rota inicial');
