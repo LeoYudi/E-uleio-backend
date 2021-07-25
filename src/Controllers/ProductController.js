@@ -37,7 +37,7 @@ module.exports = {
                 description,
                 price,
                 total_pages,
-                image_uri: `http://localhost:3000/images/${req.file.key}`
+                image_uri: `${process.env.API_URL}/images/${req.file.key}`
             });
 
             return res.status(200).send(product);
@@ -130,7 +130,7 @@ module.exports = {
                     description,
                     price,
                     total_pages,
-                    image_uri: `http://localhost:3000/images/${req.file.key}`
+                    image_uri: `${process.env.API_URL}/images/${req.file.key}`
                 });
             }
 

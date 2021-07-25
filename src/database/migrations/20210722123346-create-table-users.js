@@ -9,44 +9,49 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
       },
+
       name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
+
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
+
       password: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
+
       cpf: {
         type: Sequelize.STRING(14),
         allowNull: false,
-        unique: true
+        unique: true,
       },
+
       zip_code: {
         type: Sequelize.STRING(9),
-        allowNull: true
+        allowNull: true,
       },
+
       is_admin: {
         type: Sequelize.TINYINT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
       },
+
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: new Date()
-      }
+        defaultValue: new Date(),
+      },
     });
-
   },
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('users');
-
   }
 };
