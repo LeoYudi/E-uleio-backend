@@ -1,8 +1,8 @@
 const express = require('express');
 const multer = require('multer');
-const CategoryController = require('./Controllers/CategoryController');
-const ProductController = require('./Controllers/ProductController');
-const PublisherController = require('./Controllers/PublisherController');
+const CategoryController = require('./controllers/CategoryController');
+const ProductController = require('./controllers/ProductController');
+const PublisherController = require('./controllers/PublisherController');
 const UserController = require('./controllers/UserController');
 
 const multerConfig = require('./middlewares/multerConfig');
