@@ -82,6 +82,9 @@ module.exports = {
     const { name, zip_code } = req.body;
     
     try {
+      if(req.isAdmin)
+      return res.status(403).send({ msg: "Permission denied" });
+      
       const user = await User.findByPk(req.id);
 
       if(!user)

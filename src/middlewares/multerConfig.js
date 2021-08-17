@@ -6,15 +6,17 @@ module.exports = {
         destination: (req, file, cb) => {
             cb(null, path.resolve(__dirname, '..', '..', 'uploads'));
         },
+
         filename: (req, file, cb) => {
             const date = new Date();
             file.key = `${date.getTime()}-${file.originalname}`;
             cb(null, file.key);
         }
     }),
+
     dest: path.resolve(__dirname, '..', '..', 'uploads'),
     limits: {
-        fileSize: 500 * 1024,
+        fileSize: 600 * 1024,
     },
 
     fileFilter: (req, file, cb) => {
@@ -24,9 +26,8 @@ module.exports = {
             'image/png',
         ];
 
-        if (allowedMimes.includes(file.mimetype))
-            cb(null, true)
-        else
-            cb(new Error('invalid file type'));
+        if(allowedMimes.includes(file.mimetype))
+          cb(null, true)
+        else cb(new Error('Invalid file type'));
     }
 }
