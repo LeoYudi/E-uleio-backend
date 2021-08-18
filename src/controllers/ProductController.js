@@ -64,9 +64,9 @@ module.exports = {
         };
 
         if (id_category)
-            query.where.id_brand = parseInt(id_category);
+            query.where.id_category = parseInt(id_category);
         if (id_publisher)
-            query.where.id_brand = parseInt(id_publisher);
+            query.where.id_publisher = parseInt(id_publisher);
 
         try {
             const products = await Product.findAll(query);
