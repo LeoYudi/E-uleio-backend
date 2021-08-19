@@ -4,6 +4,3 @@ package-lock.json
 /uploads/*
 !/uploads/.gitkeep
 .env
-
-yarn.lock
-.gitignore
